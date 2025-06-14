@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOP AI 10 - דוח תיק מניות</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -26,10 +27,30 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
         }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; position: relative; z-index: 1; }
+        .header p { font-size: 1.2em; opacity: 0.9; position: relative; z-index: 1; }
         .section { padding: 30px; border-bottom: 1px solid #eee; }
         .section:last-child { border-bottom: none; }
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .portfolio-table {
             width: 100%;
             border-collapse: collapse;
@@ -49,6 +70,7 @@
             padding: 12px;
             text-align: center;
             border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
         }
         .portfolio-table tbody tr:hover { background-color: #f8f9ff; }
         .profit { color: #27ae60; font-weight: bold; }
@@ -61,6 +83,7 @@
             border-radius: 15px;
             margin: 20px 0;
             text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .summary-stats {
             display: grid;
@@ -72,6 +95,7 @@
             background: rgba(255,255,255,0.2);
             padding: 15px;
             border-radius: 10px;
+            backdrop-filter: blur(10px);
         }
         .stat-value { font-size: 1.3em; font-weight: bold; margin-top: 5px; }
         .benchmark-section {
@@ -110,17 +134,28 @@
             font-weight: bold;
             font-size: 0.9em;
         }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section { animation: fadeInUp 0.6s ease-out; }
+        .update-time {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🤖 TOP AI 10 - דוח תיק מניות</h1>
-            <p>עדכון אחרון: 14/06/2025 12:56</p>
+            <p>עדכון אחרון: 14/06/2025 13:12</p>
         </div>
 
         <div class="section">
-            <h2>🎯 ביצועי התיק האישי</h2>
+            <h2 class="section-title">🎯 ביצועי התיק האישי <span style="font-size: 1.5em;">💼</span></h2>
             <table class="portfolio-table">
                 <thead>
                     <tr>
@@ -244,7 +279,7 @@
         </div>
 
         <div class="section">
-            <h2>📈 השוואה למדדים</h2>
+            <h2 class="section-title">📈 השוואה למדדים <span style="font-size: 1.5em;">📊</span></h2>
             <div class="benchmark-section">
                 <table class="portfolio-table">
                     <thead>
@@ -284,13 +319,13 @@
         </div>
 
         <div class="section">
-            <h2>🏆 סיכום השוואתי</h2>
+            <h2 class="section-title">🏆 סיכום השוואתי <span style="font-size: 1.5em;">⚡</span></h2>
             <div class="comparison-section">
                 <div class="comparison-item">
                     <div><strong>TOP AI 10:</strong> 
                         <span class="loss">-1.4%</span>
                     </div>
-                    <div>🤖</div>
+                    <div style="font-size: 1.5em;">🎯</div>
                 </div>
                 <div class="comparison-item">
                     <div><strong>S&P 500 (SPY):</strong> 
@@ -320,8 +355,9 @@
         </div>
 
         <div class="section" style="text-align: center; border-bottom: none;">
-            <p style="color: #7f8c8d; font-size: 0.9em; margin-top: 20px;">
-                ✅ הדוח הושלם בהצלחה! הרצה הבאה: 1 לחודש הבא ב-23:10
+            <p class="update-time">
+                ✅ הדוח הושלם בהצלחה! הרצה הבאה: 1 לחודש הבא ב-23:10<br>
+                <small>מניות: ANET, AVGO, ASML, CEG, CRWD, NVDA, PLTR, TSLA, TSM, VRT</small>
             </p>
         </div>
     </div>
