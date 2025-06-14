@@ -12,7 +12,7 @@
 - **NVDA** - NVIDIA
 - **PLTR** - Palantir
 - **TSLA** - Tesla
-- **TMS** - Toyota Motor
+- **TMS** - Taiwan Semiconductor Manufacturing
 - **VRT** - Vertiv Holdings
 
 ## 📊 מה המערכת עושה?
