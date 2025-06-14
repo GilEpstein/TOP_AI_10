@@ -37,7 +37,15 @@ class AdvancedPortfolioTracker:
         purchase_date = '2025-06-12'
         end_date = '2025-06-13'  # יום אחרי כדי לוודא שיש נתונים
         
-        purchase_data = yf.download(all_symbols, start=purchase_date, end=end_date)
+        print(f"🔄 מביא נתוני קנייה עבור: {all_symbols}")
+        
+        try:
+            purchase_data = yf.download(all_symbols, start=purchase_date, end=end_date, progress=False)
+            print(f"✅ הורד בהצלחה נתונים לתאריך {purchase_date}")
+        except Exception as e:
+            print(f"❌ שגיאה בהורדת נתונים: {e}")
+            # נסה תאריך אחר
+            purchase_data = yf.download(all_symbols, start='2025-06-11', end='2025-06-14', progress=False)
         
         if len(all_symbols) == 1:
             purchase_prices = {all_symbols[0]: purchase_data['Close'].iloc[0]}
@@ -49,6 +57,7 @@ class AdvancedPortfolioTracker:
         with open('data/purchase_prices.json', 'w') as f:
             json.dump(purchase_prices, f, indent=2)
             
+        print(f"💾 נשמרו מחירי קנייה עבור {len(purchase_prices)} מניות")
         return purchase_prices
     
     def get_current_prices(self):
@@ -56,17 +65,19 @@ class AdvancedPortfolioTracker:
         all_symbols = list(self.portfolio.keys()) + list(self.benchmarks.keys())
         
         try:
+            print(f"🔄 מביא מחירים נוכחיים עבור: {all_symbols}")
             # מביא נתונים אחרונים
-            current_data = yf.download(all_symbols, period='5d', interval='1d')
+            current_data = yf.download(all_symbols, period='5d', interval='1d', progress=False)
             
             if len(all_symbols) == 1:
                 current_prices = {all_symbols[0]: current_data['Close'].iloc[-1]}
             else:
                 current_prices = current_data['Close'].iloc[-1].to_dict()
                 
+            print(f"✅ התקבלו מחירים נוכחיים עבור {len(current_prices)} מניות")
             return current_prices
         except Exception as e:
-            print(f"שגיאה בהבאת מחירים נוכחיים: {e}")
+            print(f"❌ שגיאה בהבאת מחירים נוכחיים: {e}")
             return {}
     
     def load_or_fetch_purchase_prices(self):
@@ -74,10 +85,11 @@ class AdvancedPortfolioTracker:
         purchase_file = 'data/purchase_prices.json'
         
         if os.path.exists(purchase_file):
+            print(f"📂 טוען מחירי קנייה קיימים מ-{purchase_file}")
             with open(purchase_file, 'r') as f:
                 return json.load(f)
         else:
-            print("מביא מחירי קנייה לראשונה...")
+            print("🆕 מביא מחירי קנייה לראשונה...")
             return self.get_purchase_prices()
     
     def calculate_performance_data(self):
@@ -93,6 +105,8 @@ class AdvancedPortfolioTracker:
         portfolio_data = []
         total_invested = 0
         total_current_value = 0
+        
+        print(f"📊 מחשב ביצועים עבור {len(self.portfolio)} מניות")
         
         for symbol in self.portfolio.keys():
             if symbol not in purchase_prices or symbol not in current_prices:
@@ -121,11 +135,16 @@ class AdvancedPortfolioTracker:
                 'profit_loss': profit_loss,
                 'shares': shares_bought
             })
+            
+            print(f"✅ {symbol}: ${purchase_price:.2f} → ${current_price:.2f} ({change_percent:+.1f}%)")
         
         # ביצועי מדדים
         benchmark_data = []
+        print(f"📈 מחשב ביצועי מדדים")
+        
         for symbol, name in self.benchmarks.items():
             if symbol not in purchase_prices or symbol not in current_prices:
+                print(f"⚠️ חסרים נתונים עבור מדד {symbol}")
                 continue
                 
             purchase_price = purchase_prices[symbol]
@@ -143,9 +162,13 @@ class AdvancedPortfolioTracker:
                 'current_value': current_value,
                 'return_percent': return_percent
             })
+            
+            print(f"✅ {name} ({symbol}): {return_percent:+.1f}%")
         
         # תשואת התיק הכללית
         portfolio_return = ((total_current_value - total_invested) / total_invested) * 100 if total_invested > 0 else 0
+        
+        print(f"💰 סיכום: השקעה ${total_invested:.2f} → ${total_current_value:.2f} ({portfolio_return:+.1f}%)")
         
         return {
             'portfolio': portfolio_data,
@@ -162,6 +185,7 @@ class AdvancedPortfolioTracker:
     def save_data(self, data):
         """שומר נתונים לקובץ JSON"""
         os.makedirs('data', exist_ok=True)
+        print(f"💾 שומר נתונים...")
         
         # שמירת נתונים עכשוויים
         with open('data/latest_report.json', 'w', encoding='utf-8') as f:
@@ -184,13 +208,17 @@ class AdvancedPortfolioTracker:
         
         with open(history_file, 'w', encoding='utf-8') as f:
             json.dump(history, f, ensure_ascii=False, indent=2)
+            
+        print(f"✅ נתונים נשמרו בהצלחה")
     
     def generate_html_report(self, data):
         """יוצר דוח HTML פשוט וקל"""
         
+        print(f"🌐 מתחיל יצירת דוח HTML...")
+        print(f"📂 נתיב עבודה נוכחי: {os.getcwd()}")
+        
         # HTML פשוט ללא Jinja2 - יעבוד בוודאות!
-        html_content = f"""
-<!DOCTYPE html>
+        html_content = f"""<!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
     <meta charset="UTF-8">
@@ -448,11 +476,26 @@ class AdvancedPortfolioTracker:
 </html>"""
         
         # שמירת קובץ HTML
-        os.makedirs('docs', exist_ok=True)
-        with open('docs/index.html', 'w', encoding='utf-8') as f:
-            f.write(html_content)
+        print(f"📁 יוצר תיקיית docs...")
+        try:
+            os.makedirs('docs', exist_ok=True)
+            print(f"✅ תיקיית docs נוצרה")
+            
+            html_file_path = 'docs/index.html'
+            print(f"📄 כותב קובץ HTML ל-{html_file_path}")
+            
+            with open(html_file_path, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            
+            print(f"✅ נוצר קובץ: {html_file_path} ({len(html_content):,} תווים)")
+            print(f"📂 תוכן תיקיית docs: {os.listdir('docs')}")
+            
+        except Exception as e:
+            print(f"❌ שגיאה ביצירת קובץ HTML: {e}")
+            import traceback
+            traceback.print_exc()
         
-        print("✅ דוח HTML נוצר בהצלחה!")
+        print("✅ דוח HTML הושלם!")
 
 def main():
     """הפונקציה הראשית"""
@@ -462,6 +505,7 @@ def main():
     
     try:
         # חישוב נתונים
+        print("📊 שלב 1: חישוב נתוני ביצועים...")
         data = tracker.calculate_performance_data()
         
         if data is None:
@@ -469,12 +513,12 @@ def main():
             return
         
         # שמירת נתונים
+        print("💾 שלב 2: שמירת נתונים...")
         tracker.save_data(data)
-        print("✅ נתונים נשמרו")
         
         # יצירת דוח HTML
+        print("🌐 שלב 3: יצירת דוח HTML...")
         tracker.generate_html_report(data)
-        print("✅ דוח HTML נוצר")
         
         # הדפסת סיכום
         summary = data['summary']
@@ -482,9 +526,13 @@ def main():
         print(f"   💰 השקעה כוללת: ${summary['total_invested']:,.2f}")
         print(f"   📈 ערך נוכחי: ${summary['total_current_value']:,.2f}")
         print(f"   🎯 תשואה: {summary['portfolio_return']:+.1f}%")
+        print(f"   📈 מספר מניות בתיק: {len(data['portfolio'])}")
+        print(f"   📊 מספר מדדים: {len(data['benchmarks'])}")
+        
+        print(f"\n🎉 התהליך הושלם בהצלחה!")
         
     except Exception as e:
-        print(f"❌ שגיאה: {e}")
+        print(f"❌ שגיאה כללית: {e}")
         import traceback
         traceback.print_exc()
 
