@@ -126,17 +126,17 @@ class AdvancedPortfolioTracker:
             print(f"❌ שגיאה בהבאת מחירים נוכחיים: {e}")
             return {}
     
-    def load_or_fetch_purchase_prices(self):
-        """טוען מחירי קנייה קיימים או מביא חדשים"""
-        purchase_file = 'data/purchase_prices.json'
-        
-        if os.path.exists(purchase_file):
-            print(f"📂 טוען מחירי קנייה קיימים מ-{purchase_file}")
-            with open(purchase_file, 'r') as f:
-                return json.load(f)
-        else:
-            print("🆕 מביא מחירי קנייה לראשונה...")
-            return self.get_purchase_prices()
+   def load_or_fetch_purchase_prices(self):
+    """טוען מחירי קנייה קיימים או מביא חדשים"""
+    purchase_file = 'data/purchase_prices.json'
+    
+    # כפה רענון - מחק קובץ ישן אם קיים
+    if os.path.exists(purchase_file):
+        os.remove(purchase_file)
+        print("🗑️ מחק נתונים ישנים לכפיית רענון")
+    
+    print("🆕 מביא מחירי קנייה מחדש...")
+    return self.get_purchase_prices()
     
     def calculate_performance_data(self):
         """מחשב את כל נתוני הביצועים"""
