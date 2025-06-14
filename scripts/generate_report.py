@@ -37,7 +37,13 @@ class AdvancedPortfolioTracker:
         purchase_date = '2025-06-12'
         end_date = '2025-06-13'  # יום אחרי כדי לוודא שיש נתונים
         
-        purchase_data = yf.download(all_symbols, start=purchase_date, end=end_date)
+       try:
+    purchase_data = yf.download(all_symbols, start=purchase_date, end=end_date, progress=False)
+    print(f"✅ הורד בהצלחה נתונים עבור: {all_symbols}")
+except Exception as e:
+    print(f"❌ שגיאה בהורדת נתונים: {e}")
+    # נסה תאריך אחר
+    purchase_data = yf.download(all_symbols, start='2025-06-11', end='2025-06-14', progress=False)
         
         if len(all_symbols) == 1:
             purchase_prices = {all_symbols[0]: purchase_data['Close'].iloc[0]}
