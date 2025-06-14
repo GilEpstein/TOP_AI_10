@@ -1,14 +1,42 @@
-json{
-  "AAPL": {
-    "quantity": 10,
-    "avg_price": 150.00
+{
+  "ANET": {
+    "quantity": 1.04,
+    "avg_price": 92.35
   },
-  "MSFT": {
-    "quantity": 5,
-    "avg_price": 300.00
+  "AVGO": {
+    "quantity": 0.39,
+    "avg_price": 248.70
   },
-  "GOOGL": {
-    "quantity": 3,
-    "avg_price": 2500.00
+  "ASML": {
+    "quantity": 0.13,
+    "avg_price": 761.00
+  },
+  "CEG": {
+    "quantity": 0.33,
+    "avg_price": 296.89
+  },
+  "CRWD": {
+    "quantity": 0.21,
+    "avg_price": 480.62
+  },
+  "NVDA": {
+    "quantity": 0.69,
+    "avg_price": 141.97
+  },
+  "PLTR": {
+    "quantity": 0.73,
+    "avg_price": 137.40
+  },
+  "TSLA": {
+    "quantity": 0.31,
+    "avg_price": 325.31
+  },
+  "TSM": {
+    "quantity": 0.47,
+    "avg_price": 211.10
+  },
+  "VRT": {
+    "quantity": 0.87,
+    "avg_price": 110.97
   }
 }
