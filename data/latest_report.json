@@ -81,6 +81,16 @@
       "shares": 0.3133715790492432
     },
     {
+      "symbol": "TSM",
+      "purchase_price": 215.42999267578125,
+      "current_price": 211.10000610351562,
+      "change_percent": -2.0099274564717584,
+      "investment": 100,
+      "current_value": 97.99007254352824,
+      "profit_loss": -2.0099274564717575,
+      "shares": 0.46418791904476564
+    },
+    {
       "symbol": "VRT",
       "purchase_price": 114.5,
       "current_price": 110.97000122070312,
@@ -118,10 +128,10 @@
     }
   ],
   "summary": {
-    "total_invested": 900,
-    "total_current_value": 887.3570314381602,
-    "total_profit_loss": -12.64296856183978,
-    "portfolio_return": -1.4047742846488644
+    "total_invested": 1000,
+    "total_current_value": 985.3471039816884,
+    "total_profit_loss": -14.652896018311594,
+    "portfolio_return": -1.4652896018311594
   },
-  "timestamp": "2025-06-14T13:12:17.781888"
+  "timestamp": "2025-06-14T13:22:11.034241"
 }
