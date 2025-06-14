@@ -17,7 +17,7 @@ class AdvancedPortfolioTracker:
             'NVDA': {'purchase_date': '2025-06-12'},
             'PLTR': {'purchase_date': '2025-06-12'},
             'TSLA': {'purchase_date': '2025-06-12'},
-            'TMS': {'purchase_date': '2025-06-12'},
+            'TSM': {'purchase_date': '2025-06-12'},
             'VRT': {'purchase_date': '2025-06-12'}
         }
         
