@@ -42,15 +42,46 @@ class AdvancedPortfolioTracker:
         try:
             purchase_data = yf.download(all_symbols, start=purchase_date, end=end_date, progress=False)
             print(f"✅ הורד בהצלחה נתונים לתאריך {purchase_date}")
+            
+            if len(all_symbols) == 1:
+                purchase_prices = {all_symbols[0]: float(purchase_data['Close'].iloc[0])}
+            else:
+                purchase_prices = {}
+                for symbol in all_symbols:
+                    try:
+                        price = float(purchase_data['Close'][symbol].iloc[0])
+                        purchase_prices[symbol] = price
+                        print(f"✅ {symbol}: ${price:.2f}")
+                    except (KeyError, IndexError) as e:
+                        print(f"⚠️ לא נמצא נתון עבור {symbol} בתאריך {purchase_date}")
+                        # נסה תאריך קודם
+                        try:
+                            alt_data = yf.download(symbol, start='2025-06-11', end='2025-06-13', progress=False)
+                            if not alt_data.empty:
+                                price = float(alt_data['Close'].iloc[0])
+                                purchase_prices[symbol] = price
+                                print(f"✅ {symbol}: ${price:.2f} (מתאריך חלופי)")
+                        except Exception:
+                            print(f"❌ לא ניתן לקבל נתונים עבור {symbol}")
+                            
         except Exception as e:
             print(f"❌ שגיאה בהורדת נתונים: {e}")
-            # נסה תאריך אחר
-            purchase_data = yf.download(all_symbols, start='2025-06-11', end='2025-06-14', progress=False)
-        
-        if len(all_symbols) == 1:
-            purchase_prices = {all_symbols[0]: purchase_data['Close'].iloc[0]}
-        else:
-            purchase_prices = purchase_data['Close'].iloc[0].to_dict()
+            # fallback - נסה תאריך אחר
+            try:
+                purchase_data = yf.download(all_symbols, start='2025-06-11', end='2025-06-14', progress=False)
+                if len(all_symbols) == 1:
+                    purchase_prices = {all_symbols[0]: float(purchase_data['Close'].iloc[0])}
+                else:
+                    purchase_prices = {}
+                    for symbol in all_symbols:
+                        try:
+                            price = float(purchase_data['Close'][symbol].iloc[0])
+                            purchase_prices[symbol] = price
+                        except:
+                            print(f"❌ נכשל גם בתאריך חלופי עבור {symbol}")
+            except Exception as fallback_error:
+                print(f"❌ שגיאה גם בתאריך חלופי: {fallback_error}")
+                return {}
             
         # שמירת מחירי הקנייה לקובץ JSON
         os.makedirs('data', exist_ok=True)
@@ -70,9 +101,24 @@ class AdvancedPortfolioTracker:
             current_data = yf.download(all_symbols, period='5d', interval='1d', progress=False)
             
             if len(all_symbols) == 1:
-                current_prices = {all_symbols[0]: current_data['Close'].iloc[-1]}
+                current_prices = {all_symbols[0]: float(current_data['Close'].iloc[-1])}
             else:
-                current_prices = current_data['Close'].iloc[-1].to_dict()
+                current_prices = {}
+                for symbol in all_symbols:
+                    try:
+                        price = float(current_data['Close'][symbol].iloc[-1])
+                        current_prices[symbol] = price
+                    except (KeyError, IndexError):
+                        print(f"⚠️ לא נמצא מחיר נוכחי עבור {symbol}")
+                        # נסה להביא את המניה לבד
+                        try:
+                            single_data = yf.download(symbol, period='5d', progress=False)
+                            if not single_data.empty:
+                                price = float(single_data['Close'].iloc[-1])
+                                current_prices[symbol] = price
+                                print(f"✅ {symbol}: ${price:.2f} (הורדה נפרדת)")
+                        except Exception:
+                            print(f"❌ לא ניתן לקבל מחיר נוכחי עבור {symbol}")
                 
             print(f"✅ התקבלו מחירים נוכחיים עבור {len(current_prices)} מניות")
             return current_prices
@@ -113,8 +159,8 @@ class AdvancedPortfolioTracker:
                 print(f"⚠️ חסרים נתונים עבור {symbol}")
                 continue
                 
-            purchase_price = purchase_prices[symbol]
-            current_price = current_prices[symbol]
+            purchase_price = float(purchase_prices[symbol])
+            current_price = float(current_prices[symbol])
             
             # חישוב ביצועים
             change_percent = ((current_price - purchase_price) / purchase_price) * 100
@@ -147,8 +193,8 @@ class AdvancedPortfolioTracker:
                 print(f"⚠️ חסרים נתונים עבור מדד {symbol}")
                 continue
                 
-            purchase_price = purchase_prices[symbol]
-            current_price = current_prices[symbol]
+            purchase_price = float(purchase_prices[symbol])
+            current_price = float(current_prices[symbol])
             
             shares_bought = self.investment_per_stock / purchase_price
             current_value = shares_bought * current_price
@@ -212,12 +258,12 @@ class AdvancedPortfolioTracker:
         print(f"✅ נתונים נשמרו בהצלחה")
     
     def generate_html_report(self, data):
-        """יוצר דוח HTML פשוט וקל"""
+        """יוצר דוח HTML מתקדם"""
         
         print(f"🌐 מתחיל יצירת דוח HTML...")
         print(f"📂 נתיב עבודה נוכחי: {os.getcwd()}")
         
-        # HTML פשוט ללא Jinja2 - יעבוד בוודאות!
+        # HTML מתקדם עם כל התכונות
         html_content = f"""<!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
@@ -225,6 +271,7 @@ class AdvancedPortfolioTracker:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOP AI 10 - דוח תיק מניות</title>
     <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -246,10 +293,30 @@ class AdvancedPortfolioTracker:
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
         }}
-        .header h1 {{ font-size: 2.5em; margin-bottom: 10px; }}
+        .header::before {{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }}
+        .header h1 {{ font-size: 2.5em; margin-bottom: 10px; position: relative; z-index: 1; }}
+        .header p {{ font-size: 1.2em; opacity: 0.9; position: relative; z-index: 1; }}
         .section {{ padding: 30px; border-bottom: 1px solid #eee; }}
         .section:last-child {{ border-bottom: none; }}
+        .section-title {{
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }}
         .portfolio-table {{
             width: 100%;
             border-collapse: collapse;
@@ -269,6 +336,7 @@ class AdvancedPortfolioTracker:
             padding: 12px;
             text-align: center;
             border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
         }}
         .portfolio-table tbody tr:hover {{ background-color: #f8f9ff; }}
         .profit {{ color: #27ae60; font-weight: bold; }}
@@ -281,6 +349,7 @@ class AdvancedPortfolioTracker:
             border-radius: 15px;
             margin: 20px 0;
             text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }}
         .summary-stats {{
             display: grid;
@@ -292,6 +361,7 @@ class AdvancedPortfolioTracker:
             background: rgba(255,255,255,0.2);
             padding: 15px;
             border-radius: 10px;
+            backdrop-filter: blur(10px);
         }}
         .stat-value {{ font-size: 1.3em; font-weight: bold; margin-top: 5px; }}
         .benchmark-section {{
@@ -330,6 +400,17 @@ class AdvancedPortfolioTracker:
             font-weight: bold;
             font-size: 0.9em;
         }}
+        @keyframes fadeInUp {{
+            from {{ opacity: 0; transform: translateY(30px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }}
+        .section {{ animation: fadeInUp 0.6s ease-out; }}
+        .update-time {{
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }}
     </style>
 </head>
 <body>
@@ -340,7 +421,7 @@ class AdvancedPortfolioTracker:
         </div>
 
         <div class="section">
-            <h2>🎯 ביצועי התיק האישי</h2>
+            <h2 class="section-title">🎯 ביצועי התיק האישי <span style="font-size: 1.5em;">💼</span></h2>
             <table class="portfolio-table">
                 <thead>
                     <tr>
@@ -401,7 +482,7 @@ class AdvancedPortfolioTracker:
         </div>
 
         <div class="section">
-            <h2>📈 השוואה למדדים</h2>
+            <h2 class="section-title">📈 השוואה למדדים <span style="font-size: 1.5em;">📊</span></h2>
             <div class="benchmark-section">
                 <table class="portfolio-table">
                     <thead>
@@ -434,13 +515,13 @@ class AdvancedPortfolioTracker:
         </div>
 
         <div class="section">
-            <h2>🏆 סיכום השוואתי</h2>
+            <h2 class="section-title">🏆 סיכום השוואתי <span style="font-size: 1.5em;">⚡</span></h2>
             <div class="comparison-section">
                 <div class="comparison-item">
                     <div><strong>TOP AI 10:</strong> 
                         <span class="{}">{:+.1f}%</span>
                     </div>
-                    <div>🤖</div>
+                    <div style="font-size: 1.5em;">🎯</div>
                 </div>""".format(
             "profit" if data['summary']['portfolio_return'] > 0 else "loss",
             data['summary']['portfolio_return']
@@ -467,8 +548,9 @@ class AdvancedPortfolioTracker:
         </div>
 
         <div class="section" style="text-align: center; border-bottom: none;">
-            <p style="color: #7f8c8d; font-size: 0.9em; margin-top: 20px;">
-                ✅ הדוח הושלם בהצלחה! הרצה הבאה: 1 לחודש הבא ב-23:10
+            <p class="update-time">
+                ✅ הדוח הושלם בהצלחה! הרצה הבאה: 1 לחודש הבא ב-23:10<br>
+                <small>מניות: ANET, AVGO, ASML, CEG, CRWD, NVDA, PLTR, TSLA, TSM, VRT</small>
             </p>
         </div>
     </div>
@@ -488,7 +570,14 @@ class AdvancedPortfolioTracker:
                 f.write(html_content)
             
             print(f"✅ נוצר קובץ: {html_file_path} ({len(html_content):,} תווים)")
-            print(f"📂 תוכן תיקיית docs: {os.listdir('docs')}")
+            
+            # בדיקה שהקובץ נוצר
+            if os.path.exists(html_file_path):
+                file_size = os.path.getsize(html_file_path)
+                print(f"📂 אומת: הקובץ קיים וגודלו {file_size:,} bytes")
+                print(f"📂 תוכן תיקיית docs: {os.listdir('docs')}")
+            else:
+                print(f"❌ הקובץ לא נוצר!")
             
         except Exception as e:
             print(f"❌ שגיאה ביצירת קובץ HTML: {e}")
