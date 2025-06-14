@@ -31,16 +31,16 @@ jobs:
       run: |
         python scripts/generate_report.py
         
+    - name: 💾 Commit Generated Files
+      run: |
+        git config --local user.email "portfolio-bot@github.com"
+        git config --local user.name "Portfolio Bot 🤖"
+        git add data/ docs/
+        git diff --staged --quiet || git commit -m "📊 עדכון דוח תיק - $(date +'%B %Y')"
+        git push
+        
     - name: 🚀 Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs
-        
-    - name: 💾 Commit Data
-      run: |
-        git config --local user.email "portfolio-bot@github.com"
-        git config --local user.name "Portfolio Bot 🤖"
-        git add data/
-        git commit -m "📈 עדכון נתוני תיק - $(date +'%B %Y')" || exit 0
-        git push
