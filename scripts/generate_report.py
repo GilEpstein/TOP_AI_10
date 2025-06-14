@@ -42,13 +42,22 @@ def generate_html_report(portfolio_data, market_data):
     total_profit = total_value - total_cost
     total_profit_percent = (total_profit / total_cost) * 100 if total_cost > 0 else 0
     
+    # תאריך נוכחי בעברית
+    current_date = datetime.now()
+    hebrew_months = {
+        1: 'ינואר', 2: 'פברואר', 3: 'מרץ', 4: 'אפריל',
+        5: 'מאי', 6: 'יוני', 7: 'יולי', 8: 'אוגוסט',
+        9: 'ספטמבר', 10: 'אוקטובר', 11: 'נובמבר', 12: 'דצמבר'
+    }
+    hebrew_date = f"{current_date.day} {hebrew_months[current_date.month]} {current_date.year}"
+    
     html = f"""
     <!DOCTYPE html>
     <html dir="rtl" lang="he">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>דוח תיק השקעות - {datetime.now().strftime('%B %Y')}</title>
+        <title>דוח תיק השקעות - {hebrew_date}</title>
         <style>
             * {{
                 margin: 0;
@@ -114,7 +123,7 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .summary-title {{
-                font-size: 2em;
+                font-size: 2.2em;
                 color: #2c3e50;
                 margin-bottom: 30px;
                 font-weight: 700;
@@ -122,56 +131,60 @@ def generate_html_report(portfolio_data, market_data):
             
             .summary-cards {{
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
                 max-width: 900px;
                 margin: 0 auto;
             }}
             
             .summary-card {{
                 background: white;
-                padding: 25px;
+                padding: 30px;
                 border-radius: 15px;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.12);
                 border: 1px solid #e9ecef;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
             }}
             
             .summary-card:hover {{
-                transform: translateY(-5px);
-                box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.18);
             }}
             
             .summary-card h3 {{
-                font-size: 0.9em;
+                font-size: 1em;
                 color: #6c757d;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 font-weight: 600;
             }}
             
             .summary-card .value {{
-                font-size: 1.8em;
+                font-size: 2em;
                 font-weight: 700;
-                margin-bottom: 5px;
+                margin-bottom: 8px;
+                direction: ltr;
+                text-align: center;
             }}
             
             .summary-card .profit {{
-                font-size: 1.1em;
+                font-size: 1.2em;
                 font-weight: 600;
+                direction: ltr;
+                text-align: center;
             }}
             
-            .profit-positive {{
-                color: #28a745;
+            .positive {{
+                color: #28a745 !important;
             }}
             
-            .profit-negative {{
-                color: #dc3545;
+            .negative {{
+                color: #dc3545 !important;
             }}
             
-            .profit-neutral {{
-                color: #6c757d;
+            .neutral {{
+                color: #6c757d !important;
             }}
             
             .section {{
@@ -208,9 +221,9 @@ def generate_html_report(portfolio_data, market_data):
             
             .market-item {{
                 background: white;
-                padding: 20px;
+                padding: 25px;
                 border-radius: 12px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
                 border: 1px solid #e9ecef;
                 display: flex;
                 justify-content: space-between;
@@ -219,21 +232,22 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .market-item:hover {{
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+                transform: translateY(-3px);
+                box-shadow: 0 12px 30px rgba(0,0,0,0.15);
             }}
             
             .market-name {{
                 font-weight: 600;
                 color: #2c3e50;
                 font-size: 1.1em;
+                text-align: right;
             }}
             
             .market-change {{
                 font-weight: 700;
-                font-size: 1.1em;
-                text-align: left;
+                font-size: 1.2em;
                 direction: ltr;
+                text-align: left;
             }}
             
             .portfolio-table {{
@@ -242,13 +256,13 @@ def generate_html_report(portfolio_data, market_data):
                 background: white;
                 border-radius: 12px;
                 overflow: hidden;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             }}
             
             .portfolio-table th {{
                 background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
                 color: white;
-                padding: 18px;
+                padding: 20px 15px;
                 text-align: center;
                 font-weight: 600;
                 font-size: 1em;
@@ -256,7 +270,7 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .portfolio-table td {{
-                padding: 16px;
+                padding: 18px 15px;
                 text-align: center;
                 border-bottom: 1px solid #e9ecef;
                 font-size: 0.95em;
@@ -274,6 +288,11 @@ def generate_html_report(portfolio_data, market_data):
                 font-weight: 700;
                 color: #2c3e50;
                 font-size: 1.1em;
+            }}
+            
+            .number-cell {{
+                direction: ltr;
+                text-align: center;
             }}
             
             .footer {{
@@ -294,6 +313,15 @@ def generate_html_report(portfolio_data, market_data):
                 margin: 0 5px;
             }}
             
+            .date-badge {{
+                display: inline-block;
+                background: rgba(255,255,255,0.2);
+                padding: 8px 16px;
+                border-radius: 20px;
+                margin-top: 10px;
+                font-size: 0.9em;
+            }}
+            
             @media (max-width: 768px) {{
                 .summary-cards {{
                     grid-template-columns: 1fr;
@@ -304,12 +332,20 @@ def generate_html_report(portfolio_data, market_data):
                 }}
                 
                 .portfolio-table {{
-                    font-size: 0.85em;
+                    font-size: 0.8em;
                 }}
                 
                 .portfolio-table th,
                 .portfolio-table td {{
                     padding: 12px 8px;
+                }}
+                
+                .header h1 {{
+                    font-size: 2em;
+                }}
+                
+                .summary-title {{
+                    font-size: 1.8em;
                 }}
             }}
         </style>
@@ -317,8 +353,11 @@ def generate_html_report(portfolio_data, market_data):
     <body>
         <div class="container">
             <div class="header">
-                <h1><span class="emoji">📊</span>סיכום השואתי<span class="emoji">🏆</span></h1>
-                <div class="subtitle">דוח חודשי - {datetime.now().strftime('%B %Y')}</div>
+                <h1><span class="emoji">📊</span>סיכום השקעותי<span class="emoji">🏆</span></h1>
+                <div class="subtitle">דוח חודשי מעודכן</div>
+                <div class="date-badge">
+                    <span class="emoji">📅</span>{hebrew_date}
+                </div>
             </div>
             
             <div class="summary-section">
@@ -334,9 +373,9 @@ def generate_html_report(portfolio_data, market_data):
                     </div>
                     <div class="summary-card">
                         <h3>רווח/הפסד</h3>
-                        <div class="value profit-{'positive' if total_profit >= 0 else 'negative'}">${total_profit:,.2f}</div>
-                        <div class="profit profit-{'positive' if total_profit_percent >= 0 else 'negative'}">
-                            {'+' if total_profit_percent >= 0 else ''}{total_profit_percent:.2f}%
+                        <div class="value {'positive' if total_profit >= 0 else 'negative'}">${total_profit:+,.2f}</div>
+                        <div class="profit {'positive' if total_profit_percent >= 0 else 'negative'}">
+                            {total_profit_percent:+.2f}%
                         </div>
                     </div>
                 </div>
@@ -346,18 +385,17 @@ def generate_html_report(portfolio_data, market_data):
     # הוספת מדדי השוק
     html += f"""
             <div class="section">
-                <h2 class="section-title"><span class="emoji">⚡</span>סיכום השואתי</h2>
+                <h2 class="section-title"><span class="emoji">⚡</span>סיכום השווקים</h2>
                 <div class="market-grid">
     """
     
     for name, data in market_data.items():
-        change_class = 'profit-positive' if data['change_percent'] >= 0 else 'profit-negative'
-        sign = '+' if data['change_percent'] >= 0 else ''
+        change_class = 'positive' if data['change_percent'] >= 0 else 'negative'
         html += f"""
                     <div class="market-item">
                         <div class="market-name">{name}</div>
                         <div class="market-change {change_class}">
-                            {sign}{data['change_percent']:.1f}%
+                            {data['change_percent']:+.1f}%
                         </div>
                     </div>
         """
@@ -389,23 +427,21 @@ def generate_html_report(portfolio_data, market_data):
     for symbol, data in portfolio_data.items():
         profit = data['value'] - data['cost']
         profit_percent = (profit / data['cost']) * 100 if data['cost'] > 0 else 0
-        profit_class = 'profit-positive' if profit >= 0 else 'profit-negative'
-        sign = '+' if profit >= 0 else ''
-        percent_sign = '+' if profit_percent >= 0 else ''
+        profit_class = 'positive' if profit >= 0 else 'negative'
         
         html += f"""
                         <tr>
                             <td class="stock-symbol">{symbol}</td>
-                            <td>{data['quantity']}</td>
-                            <td>${data['avg_price']:.2f}</td>
-                            <td>${data['current_price']:.2f}</td>
-                            <td>${data['value']:.2f}</td>
-                            <td class="{profit_class}">{sign}${abs(profit):.2f}</td>
-                            <td class="{profit_class}">{percent_sign}{profit_percent:.2f}%</td>
+                            <td class="number-cell">{data['quantity']}</td>
+                            <td class="number-cell">${data['avg_price']:.2f}</td>
+                            <td class="number-cell">${data['current_price']:.2f}</td>
+                            <td class="number-cell">${data['value']:.2f}</td>
+                            <td class="number-cell {profit_class}">${profit:+.2f}</td>
+                            <td class="number-cell {profit_class}">{profit_percent:+.2f}%</td>
                         </tr>
         """
     
-    html += """
+    html += f"""
                     </tbody>
                 </table>
             </div>
@@ -416,12 +452,12 @@ def generate_html_report(portfolio_data, market_data):
                     דוח זה נוצר אוטומטית על ידי GitHub Actions
                     <span class="emoji">📈</span>
                 </p>
-                <p>עודכן ב-{}</p>
+                <p>עודכן ב-{datetime.now().strftime('%d/%m/%Y בשעה %H:%M')}</p>
             </div>
         </div>
     </body>
     </html>
-    """.format(datetime.now().strftime('%d/%m/%Y %H:%M'))
+    """
     
     return html
 
