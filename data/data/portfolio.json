@@ -1,0 +1,14 @@
+json{
+  "AAPL": {
+    "quantity": 10,
+    "avg_price": 150.00
+  },
+  "MSFT": {
+    "quantity": 5,
+    "avg_price": 300.00
+  },
+  "GOOGL": {
+    "quantity": 3,
+    "avg_price": 2500.00
+  }
+}
