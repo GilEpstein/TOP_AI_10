@@ -355,7 +355,7 @@ class AdvancedPortfolioTracker:
                         <td>${{ stock.investment }}</td>
                         <td>${{ "%.2f"|format(stock.current_value) }}</td>
                         <td class="{% if stock.profit_loss > 0 %}profit{% elif stock.profit_loss < 0 %}loss{% else %}neutral{% endif %}">
-                            {{ "${:+.2f}"|format(stock.profit_loss) }}
+                            ${{ "{:+.2f}".format(stock.profit_loss) }}
                         </td>
                     </tr>
                     {% endfor %}
