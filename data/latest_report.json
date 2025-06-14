@@ -81,16 +81,6 @@
       "shares": 0.3133715790492432
     },
     {
-      "symbol": "TMS",
-      "purchase_price": NaN,
-      "current_price": NaN,
-      "change_percent": NaN,
-      "investment": 100,
-      "current_value": NaN,
-      "profit_loss": NaN,
-      "shares": NaN
-    },
-    {
       "symbol": "VRT",
       "purchase_price": 114.5,
       "current_price": 110.97000122070312,
@@ -128,10 +118,10 @@
     }
   ],
   "summary": {
-    "total_invested": 1000,
-    "total_current_value": NaN,
-    "total_profit_loss": NaN,
-    "portfolio_return": NaN
+    "total_invested": 900,
+    "total_current_value": 887.3570314381602,
+    "total_profit_loss": -12.64296856183978,
+    "portfolio_return": -1.4047742846488644
   },
-  "timestamp": "2025-06-14T10:53:02.127370"
+  "timestamp": "2025-06-14T11:03:04.159835"
 }
