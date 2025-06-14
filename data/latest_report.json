@@ -1,0 +1,137 @@
+{
+  "portfolio": [
+    {
+      "symbol": "ANET",
+      "purchase_price": 95.7699966430664,
+      "current_price": 92.3499984741211,
+      "change_percent": -3.571053867414868,
+      "investment": 100,
+      "current_value": 96.42894613258514,
+      "profit_loss": -3.571053867414861,
+      "shares": 1.0441683565334012
+    },
+    {
+      "symbol": "AVGO",
+      "purchase_price": 256.07000732421875,
+      "current_price": 248.6999969482422,
+      "change_percent": -2.878123233950295,
+      "investment": 100,
+      "current_value": 97.12187676604971,
+      "profit_loss": -2.8781232339502907,
+      "shares": 0.3905182065050933
+    },
+    {
+      "symbol": "ASML",
+      "purchase_price": 786.2100219726562,
+      "current_price": 761.0,
+      "change_percent": -3.2065251355359896,
+      "investment": 100,
+      "current_value": 96.79347486446402,
+      "profit_loss": -3.2065251355359834,
+      "shares": 0.1271924768258397
+    },
+    {
+      "symbol": "CEG",
+      "purchase_price": 300.3800048828125,
+      "current_price": 296.8900146484375,
+      "change_percent": -1.1618583719434163,
+      "investment": 100,
+      "current_value": 98.83814162805658,
+      "profit_loss": -1.1618583719434241,
+      "shares": 0.3329116398377218
+    },
+    {
+      "symbol": "CRWD",
+      "purchase_price": 481.7300109863281,
+      "current_price": 480.6199951171875,
+      "change_percent": -0.23042281855512797,
+      "investment": 100,
+      "current_value": 99.76957718144487,
+      "profit_loss": -0.2304228185551267,
+      "shares": 0.20758515707844924
+    },
+    {
+      "symbol": "NVDA",
+      "purchase_price": 145.0,
+      "current_price": 141.97000122070312,
+      "change_percent": -2.089654330549569,
+      "investment": 100,
+      "current_value": 97.91034566945044,
+      "profit_loss": -2.089654330549564,
+      "shares": 0.6896551724137931
+    },
+    {
+      "symbol": "PLTR",
+      "purchase_price": 135.19000244140625,
+      "current_price": 137.39999389648438,
+      "change_percent": 1.6347299468656897,
+      "investment": 100,
+      "current_value": 101.63472994686569,
+      "profit_loss": 1.63472994686569,
+      "shares": 0.7396996685708456
+    },
+    {
+      "symbol": "TSLA",
+      "purchase_price": 319.1099853515625,
+      "current_price": 325.30999755859375,
+      "change_percent": 1.9429076154419662,
+      "investment": 100,
+      "current_value": 101.94290761544197,
+      "profit_loss": 1.9429076154419676,
+      "shares": 0.3133715790492432
+    },
+    {
+      "symbol": "TMS",
+      "purchase_price": NaN,
+      "current_price": NaN,
+      "change_percent": NaN,
+      "investment": 100,
+      "current_value": NaN,
+      "profit_loss": NaN,
+      "shares": NaN
+    },
+    {
+      "symbol": "VRT",
+      "purchase_price": 114.5,
+      "current_price": 110.97000122070312,
+      "change_percent": -3.0829683661981444,
+      "investment": 100,
+      "current_value": 96.91703163380186,
+      "profit_loss": -3.082968366198145,
+      "shares": 0.8733624454148472
+    }
+  ],
+  "benchmarks": [
+    {
+      "symbol": "SPY",
+      "name": "S&P 500",
+      "purchase_price": 603.75,
+      "current_price": 597.0,
+      "current_value": 98.88198757763975,
+      "return_percent": -1.118012422360252
+    },
+    {
+      "symbol": "QQQ",
+      "name": "NASDAQ 100",
+      "purchase_price": 533.6599731445312,
+      "current_price": 526.9600219726562,
+      "current_value": 98.74452806861338,
+      "return_percent": -1.255471931386623
+    },
+    {
+      "symbol": "TQQQ",
+      "name": "NASDAQ 3x",
+      "purchase_price": 75.69000244140625,
+      "current_price": 72.83000183105469,
+      "current_value": 96.22142883062321,
+      "return_percent": -3.77857116937679
+    }
+  ],
+  "summary": {
+    "total_invested": 1000,
+    "total_current_value": NaN,
+    "total_profit_loss": NaN,
+    "portfolio_return": NaN
+  },
+  "timestamp": "2025-06-14T10:48:45.516746"
+}
