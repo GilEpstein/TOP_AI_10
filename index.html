@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOP AI 10 - דוח תיק מניות</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .section { padding: 30px; border-bottom: 1px solid #eee; }
+        .section:last-child { border-bottom: none; }
+        .portfolio-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .portfolio-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .portfolio-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        .portfolio-table tbody tr:hover { background-color: #f8f9ff; }
+        .profit { color: #27ae60; font-weight: bold; }
+        .loss { color: #e74c3c; font-weight: bold; }
+        .neutral { color: #f39c12; font-weight: bold; }
+        .summary-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .stat-value { font-size: 1.3em; font-weight: bold; margin-top: 5px; }
+        .benchmark-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .comparison-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .comparison-item:last-child { border-bottom: none; }
+        .winner {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .loser {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 TOP AI 10 - דוח תיק מניות</h1>
+            <p>עדכון אחרון: 14/06/2025 11:21</p>
+        </div>
+
+        <div class="section">
+            <h2>🎯 ביצועי התיק האישי</h2>
+            <table class="portfolio-table">
+                <thead>
+                    <tr>
+                        <th>סימול</th>
+                        <th>מחיר קנייה</th>
+                        <th>מחיר נוכחי</th>
+                        <th>שינוי %</th>
+                        <th>השקעה</th>
+                        <th>ערך נוכחי</th>
+                        <th>רווח/הפסד</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ANET</strong></td>
+                        <td>$95.77</td>
+                        <td>$92.35</td>
+                        <td class="neutral">-3.6%</td>
+                        <td>$100</td>
+                        <td>$96.43</td>
+                        <td class="loss">$-3.57</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AVGO</strong></td>
+                        <td>$256.07</td>
+                        <td>$248.70</td>
+                        <td class="neutral">-2.9%</td>
+                        <td>$100</td>
+                        <td>$97.12</td>
+                        <td class="loss">$-2.88</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ASML</strong></td>
+                        <td>$786.21</td>
+                        <td>$761.00</td>
+                        <td class="neutral">-3.2%</td>
+                        <td>$100</td>
+                        <td>$96.79</td>
+                        <td class="loss">$-3.21</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CEG</strong></td>
+                        <td>$300.38</td>
+                        <td>$296.89</td>
+                        <td class="neutral">-1.2%</td>
+                        <td>$100</td>
+                        <td>$98.84</td>
+                        <td class="loss">$-1.16</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRWD</strong></td>
+                        <td>$481.73</td>
+                        <td>$480.62</td>
+                        <td class="neutral">-0.2%</td>
+                        <td>$100</td>
+                        <td>$99.77</td>
+                        <td class="loss">$-0.23</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVDA</strong></td>
+                        <td>$145.00</td>
+                        <td>$141.97</td>
+                        <td class="neutral">-2.1%</td>
+                        <td>$100</td>
+                        <td>$97.91</td>
+                        <td class="loss">$-2.09</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PLTR</strong></td>
+                        <td>$135.19</td>
+                        <td>$137.40</td>
+                        <td class="neutral">+1.6%</td>
+                        <td>$100</td>
+                        <td>$101.63</td>
+                        <td class="profit">$+1.63</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TSLA</strong></td>
+                        <td>$319.11</td>
+                        <td>$325.31</td>
+                        <td class="neutral">+1.9%</td>
+                        <td>$100</td>
+                        <td>$101.94</td>
+                        <td class="profit">$+1.94</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VRT</strong></td>
+                        <td>$114.50</td>
+                        <td>$110.97</td>
+                        <td class="neutral">-3.1%</td>
+                        <td>$100</td>
+                        <td>$96.92</td>
+                        <td class="loss">$-3.08</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="summary-box">
+                <h3>💰 סיכום התיק</h3>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div>סה"כ השקעה</div>
+                        <div class="stat-value">$900.00</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>ערך נוכחי</div>
+                        <div class="stat-value">$887.36</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>רווח/הפסד</div>
+                        <div class="stat-value loss">$-12.64</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>תשואה כללית</div>
+                        <div class="stat-value loss">-1.4%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📈 השוואה למדדים</h2>
+            <div class="benchmark-section">
+                <table class="portfolio-table">
+                    <thead>
+                        <tr>
+                            <th>מדד</th>
+                            <th>מחיר קנייה</th>
+                            <th>מחיר נוכחי</th>
+                            <th>ערך נוכחי</th>
+                            <th>תשואה %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SPY</strong><br><small>S&P 500</small></td>
+                            <td>$603.75</td>
+                            <td>$597.00</td>
+                            <td>$98.88</td>
+                            <td class="loss">-1.1%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>QQQ</strong><br><small>NASDAQ 100</small></td>
+                            <td>$533.66</td>
+                            <td>$526.96</td>
+                            <td>$98.74</td>
+                            <td class="loss">-1.3%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TQQQ</strong><br><small>NASDAQ 3x</small></td>
+                            <td>$75.69</td>
+                            <td>$72.83</td>
+                            <td>$96.22</td>
+                            <td class="loss">-3.8%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🏆 סיכום השוואתי</h2>
+            <div class="comparison-section">
+                <div class="comparison-item">
+                    <div><strong>TOP AI 10:</strong> 
+                        <span class="loss">-1.4%</span>
+                    </div>
+                    <div>🤖</div>
+                </div>
+                <div class="comparison-item">
+                    <div><strong>S&P 500 (SPY):</strong> 
+                        <span class="loss">-1.1%</span>
+                    </div>
+                    <div class="loser">
+                        המדד טוב יותר 📉
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div><strong>NASDAQ 100 (QQQ):</strong> 
+                        <span class="loss">-1.3%</span>
+                    </div>
+                    <div class="loser">
+                        המדד טוב יותר 📉
+                    </div>
+                </div>
+                <div class="comparison-item">
+                    <div><strong>NASDAQ 3x (TQQQ):</strong> 
+                        <span class="loss">-3.8%</span>
+                    </div>
+                    <div class="winner">
+                        TOP AI 10 מנצח! 🚀
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center; border-bottom: none;">
+            <p style="color: #7f8c8d; font-size: 0.9em; margin-top: 20px;">
+                ✅ הדוח הושלם בהצלחה! הרצה הבאה: 1 לחודש הבא ב-23:10
+            </p>
+        </div>
+    </div>
+</body>
+</html>
