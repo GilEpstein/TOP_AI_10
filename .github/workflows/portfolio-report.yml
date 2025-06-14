@@ -1,0 +1,46 @@
+name: 📊 Portfolio Monthly Report
+
+on:
+  schedule:
+    # רץ ב-1 לכל חודש בשעה 20:10 UTC (23:10 בישראל, אחרי סגירת הבורסה)
+    - cron: '10 20 1 * *'
+  workflow_dispatch: # אפשרות להריץ ידנית מ-GitHub
+
+jobs:
+  generate-portfolio-report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+    - name: 🔄 Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        pip install -r requirements.txt
+        
+    - name: 📊 Generate Portfolio Report
+      run: |
+        python scripts/generate_report.py
+        
+    - name: 🚀 Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        
+    - name: 💾 Commit Data
+      run: |
+        git config --local user.email "portfolio-bot@github.com"
+        git config --local user.name "Portfolio Bot 🤖"
+        git add data/
+        git commit -m "📈 עדכון נתוני תיק - $(date +'%B %Y')" || exit 0
+        git push
