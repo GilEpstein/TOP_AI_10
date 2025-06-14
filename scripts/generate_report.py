@@ -116,85 +116,86 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .summary-section {{
-                padding: 40px;
+                padding: 50px 40px;
                 text-align: center;
                 background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-                border-bottom: 1px solid #dee2e6;
+                border-bottom: 2px solid #dee2e6;
             }}
             
             .summary-title {{
-                font-size: 2.2em;
+                font-size: 2.5em;
                 color: #2c3e50;
-                margin-bottom: 30px;
-                font-weight: 700;
+                margin-bottom: 40px;
+                font-weight: 800;
             }}
             
             .summary-cards {{
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 25px;
-                max-width: 900px;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+                max-width: 1000px;
                 margin: 0 auto;
             }}
             
             .summary-card {{
                 background: white;
-                padding: 30px;
-                border-radius: 15px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-                border: 1px solid #e9ecef;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                padding: 35px;
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                border: 2px solid #f1f3f4;
+                transition: all 0.3s ease;
             }}
             
             .summary-card:hover {{
-                transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+                transform: translateY(-10px);
+                box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+                border-color: #667eea;
             }}
             
             .summary-card h3 {{
-                font-size: 1em;
+                font-size: 1.1em;
                 color: #6c757d;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
                 text-transform: uppercase;
-                letter-spacing: 1px;
-                font-weight: 600;
+                letter-spacing: 1.5px;
+                font-weight: 700;
             }}
             
             .summary-card .value {{
-                font-size: 2em;
-                font-weight: 700;
-                margin-bottom: 8px;
+                font-size: 2.3em;
+                font-weight: 800;
+                margin-bottom: 10px;
                 direction: ltr;
                 text-align: center;
             }}
             
             .summary-card .profit {{
-                font-size: 1.2em;
-                font-weight: 600;
+                font-size: 1.4em;
+                font-weight: 700;
                 direction: ltr;
                 text-align: center;
             }}
             
-            .positive {{
-                color: #28a745 !important;
+            .profit-positive {{
+                color: #10b981 !important;
             }}
             
-            .negative {{
-                color: #dc3545 !important;
+            .profit-negative {{
+                color: #ef4444 !important;
             }}
             
-            .neutral {{
-                color: #6c757d !important;
+            .profit-neutral {{
+                color: #6b7280 !important;
             }}
             
             .section {{
-                padding: 40px;
+                padding: 50px 40px;
             }}
             
             .section-title {{
-                font-size: 1.8em;
+                font-size: 2em;
                 color: #2c3e50;
-                margin-bottom: 30px;
+                margin-bottom: 40px;
                 text-align: center;
                 font-weight: 700;
                 position: relative;
@@ -203,28 +204,28 @@ def generate_html_report(portfolio_data, market_data):
             .section-title::after {{
                 content: '';
                 position: absolute;
-                bottom: -10px;
+                bottom: -15px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 80px;
-                height: 3px;
+                width: 100px;
+                height: 4px;
                 background: linear-gradient(90deg, #667eea, #764ba2);
                 border-radius: 2px;
             }}
             
             .market-grid {{
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
                 margin-bottom: 30px;
             }}
             
             .market-item {{
                 background: white;
-                padding: 25px;
-                border-radius: 12px;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-                border: 1px solid #e9ecef;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+                border: 2px solid #f1f3f4;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -232,20 +233,21 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .market-item:hover {{
-                transform: translateY(-3px);
-                box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+                border-color: #667eea;
             }}
             
             .market-name {{
-                font-weight: 600;
+                font-weight: 700;
                 color: #2c3e50;
-                font-size: 1.1em;
+                font-size: 1.2em;
                 text-align: right;
             }}
             
             .market-change {{
-                font-weight: 700;
-                font-size: 1.2em;
+                font-weight: 800;
+                font-size: 1.3em;
                 direction: ltr;
                 text-align: left;
             }}
@@ -254,30 +256,31 @@ def generate_html_report(portfolio_data, market_data):
                 width: 100%;
                 border-collapse: collapse;
                 background: white;
-                border-radius: 12px;
+                border-radius: 15px;
                 overflow: hidden;
-                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border: 2px solid #f1f3f4;
             }}
             
             .portfolio-table th {{
-                background: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+                background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
                 color: white;
-                padding: 20px 15px;
+                padding: 25px 20px;
                 text-align: center;
-                font-weight: 600;
-                font-size: 1em;
-                letter-spacing: 0.5px;
+                font-weight: 700;
+                font-size: 1.1em;
+                letter-spacing: 1px;
             }}
             
             .portfolio-table td {{
-                padding: 18px 15px;
+                padding: 20px;
                 text-align: center;
-                border-bottom: 1px solid #e9ecef;
-                font-size: 0.95em;
+                border-bottom: 1px solid #e5e7eb;
+                font-size: 1em;
             }}
             
             .portfolio-table tr:hover {{
-                background-color: #f8f9fa;
+                background-color: #f9fafb;
             }}
             
             .portfolio-table tr:last-child td {{
@@ -285,22 +288,23 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .stock-symbol {{
-                font-weight: 700;
-                color: #2c3e50;
-                font-size: 1.1em;
+                font-weight: 800;
+                color: #1f2937;
+                font-size: 1.2em;
             }}
             
             .number-cell {{
                 direction: ltr;
                 text-align: center;
+                font-weight: 600;
             }}
             
             .footer {{
-                background: #2c3e50;
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
                 color: white;
                 text-align: center;
-                padding: 30px;
-                font-size: 0.9em;
+                padding: 40px;
+                font-size: 1em;
             }}
             
             .footer a {{
@@ -309,17 +313,18 @@ def generate_html_report(portfolio_data, market_data):
             }}
             
             .emoji {{
-                font-size: 1.2em;
-                margin: 0 5px;
+                font-size: 1.3em;
+                margin: 0 8px;
             }}
             
             .date-badge {{
                 display: inline-block;
                 background: rgba(255,255,255,0.2);
-                padding: 8px 16px;
-                border-radius: 20px;
-                margin-top: 10px;
-                font-size: 0.9em;
+                padding: 10px 20px;
+                border-radius: 25px;
+                margin-top: 15px;
+                font-size: 1em;
+                font-weight: 600;
             }}
             
             @media (max-width: 768px) {{
@@ -332,12 +337,12 @@ def generate_html_report(portfolio_data, market_data):
                 }}
                 
                 .portfolio-table {{
-                    font-size: 0.8em;
+                    font-size: 0.85em;
                 }}
                 
                 .portfolio-table th,
                 .portfolio-table td {{
-                    padding: 12px 8px;
+                    padding: 15px 10px;
                 }}
                 
                 .header h1 {{
@@ -345,7 +350,7 @@ def generate_html_report(portfolio_data, market_data):
                 }}
                 
                 .summary-title {{
-                    font-size: 1.8em;
+                    font-size: 2em;
                 }}
             }}
         </style>
@@ -373,8 +378,8 @@ def generate_html_report(portfolio_data, market_data):
                     </div>
                     <div class="summary-card">
                         <h3>רווח/הפסד</h3>
-                        <div class="value {'positive' if total_profit >= 0 else 'negative'}">${total_profit:+,.2f}</div>
-                        <div class="profit {'positive' if total_profit_percent >= 0 else 'negative'}">
+                        <div class="value profit-{'positive' if total_profit >= 0 else 'negative'}">${total_profit:+,.2f}</div>
+                        <div class="profit profit-{'positive' if total_profit_percent >= 0 else 'negative'}">
                             {total_profit_percent:+.2f}%
                         </div>
                     </div>
@@ -390,7 +395,7 @@ def generate_html_report(portfolio_data, market_data):
     """
     
     for name, data in market_data.items():
-        change_class = 'positive' if data['change_percent'] >= 0 else 'negative'
+        change_class = 'profit-positive' if data['change_percent'] >= 0 else 'profit-negative'
         html += f"""
                     <div class="market-item">
                         <div class="market-name">{name}</div>
@@ -427,12 +432,12 @@ def generate_html_report(portfolio_data, market_data):
     for symbol, data in portfolio_data.items():
         profit = data['value'] - data['cost']
         profit_percent = (profit / data['cost']) * 100 if data['cost'] > 0 else 0
-        profit_class = 'positive' if profit >= 0 else 'negative'
+        profit_class = 'profit-positive' if profit >= 0 else 'profit-negative'
         
         html += f"""
                         <tr>
                             <td class="stock-symbol">{symbol}</td>
-                            <td class="number-cell">{data['quantity']}</td>
+                            <td class="number-cell">{data['quantity']:.2f}</td>
                             <td class="number-cell">${data['avg_price']:.2f}</td>
                             <td class="number-cell">${data['current_price']:.2f}</td>
                             <td class="number-cell">${data['value']:.2f}</td>
